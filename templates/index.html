@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang = "ko">
+<head>
+<title>KUBiC</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/test1.css')}}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="header">
+    <h2>KUBiC</h2>
+</div>
+
+<div class="search">
+    searching space
+    <form action = "./result" method = "post" class ="search" id="option">
+        <span class="input_content">
+            <input type="text" id="search_input" class="info" placeholder ="검색어를 입력해주세요." name="keyword">
+        </span>
+        <span class="input_content">
+            <button type = "submit" id="search">Search</button>
+        </span>
+    </form>
+</div>
+
+<div class="footer">
+    <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> KUBiC all rights reserved
+    </p>
+</div>
+
+</body>
+</html>
