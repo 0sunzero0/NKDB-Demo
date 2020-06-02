@@ -22,6 +22,11 @@ body {
   font-size: 35px;
 }
 
+.search_section{
+  height: 60vh;
+  min-height: 200px;
+}
+
 .input_content{
   width:auto;
 }
@@ -50,7 +55,6 @@ body {
   margin: 10px 0px;
 }
 
-/* Style the searching space */
 /* Style query window */
 input.info{
   width: 70%;
@@ -94,3 +98,4 @@ button#search:active{
 button,input.info:focus {
   outline: none;
 }
+
