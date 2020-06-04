@@ -1,7 +1,7 @@
 from elasticsearch import Elasticsearch
 
 URL = "http://localhost:9200"
-INDEX = "nkdb200529"
+INDEX = "nkdb200531"
 
 es = Elasticsearch(URL)
 
@@ -27,7 +27,8 @@ def getResult(temp_query):
     final_result = []
 
     for doc in rawData:
-        if "file_extracted_content" in doc:
+        print(doc)
+        if  doc['_source'].get('file_name'):
             final_result.append(
                 {
                     "_id": doc["_id"],
@@ -57,5 +58,5 @@ def getResult(temp_query):
 
     return final_result
 
-temp_query = "김정은"
+temp_query = "북한 농업"
 result_list = getResult(temp_query)

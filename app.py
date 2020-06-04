@@ -81,7 +81,7 @@ def nkdbContent(SIZE, temp_query):
     corpus = []
 
     for oneDoc in result:
-        if "file_extracted_content" in oneDoc:
+        if  oneDoc['_source'].get('file_name'):
             corpus.append(
                             {
                                 "_id" : oneDoc["_id"],
