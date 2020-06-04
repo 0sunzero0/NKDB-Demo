@@ -79,8 +79,14 @@ input.info{
   background-clip: padding-box;
   border: 1px solid #ced4da;
   border-radius: .25rem;
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  transition: background-color .15s ease-in-out;
+  -webkit-transition: background-color .15s ease-in-out;
   font-size:0.5em;
+}
+
+/* When the input field gets focus, change */
+input.info:focus {
+  
 }
 
 /* Style search button */
@@ -109,4 +115,3 @@ button#search:active{
 button,input.info:focus {
   outline: none;
 }
-
