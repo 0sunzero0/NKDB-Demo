@@ -15,25 +15,36 @@ body {
 }
 
 /* Style the searching space */
+
+.search_section{
+  height: 65vh;
+  min-height: 200px;
+  padding-top: 50px;
+}
+
 .search{
   background-color: #ffffff;
-  padding: 30px;
+  padding: 20px 20px 0px 20px;
   text-align: center;
   font-size: 35px;
 }
 
-.search_section{
-  height: 60vh;
-  min-height: 200px;
-}
 
 .input_content{
   width:auto;
 }
 
+.count{
+  width:auto;
+  margin:0px auto;
+  text-align: center;
+  font-size: 15px;
+
+}
+
 /* Style the responsive design */
 @media only screen and (min-width: 100px){
-  .input_content{
+  .input_content,.count{
     display:block;
   }
 }
@@ -41,7 +52,7 @@ body {
   input.info {
     margin: 0px;
   }
-  .input_content{
+  .input_content,.count{
     display:inline;
   }
 }
