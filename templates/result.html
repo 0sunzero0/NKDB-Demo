@@ -17,11 +17,11 @@
 {% for doc in docs%}
     <div id="doc">
         <ul class="navigation">
+            <p><a href="/content/{{doc._id}}">{{doc.post_title}}</a></p>
             <p>{{doc.published_institution_url}}<br/></p>
-	    <p><a href="/content">{{doc.post_title}}</a></p>
-	    <p>{{doc.content}}<br/></p>
+            <p>{{doc.content}}<br/></p>
             <p> {{ doc.post_date }} | {{doc.post_writer}}</p>
-	    <p>{{ doc.file_url }}</p>
+            <p>{{ doc.file_url }}</p>
             <p>{{ doc.top_category }}</p>
         </ul>
     </div>
@@ -37,3 +37,4 @@
 
 </body>
 </html>
+
