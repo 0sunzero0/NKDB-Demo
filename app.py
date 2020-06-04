@@ -4,12 +4,12 @@ import json
 
 app = Flask(__name__)
 
-# Url address of Elasticsearch
+### Url address of Elasticsearch
 localUrl = "http://localhost:9200"
 #serverUrl = "http://203.252.117.201:9200"
 INDEX = "nkdb200531"
 
-# Elasticsearch Connection
+### Elasticsearch Connection
 #es = Elasticsearch(serverUrl)
 es = Elasticsearch(localUrl)
 app = Flask(__name__)
@@ -17,7 +17,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    index_total = totalCount(INDEX)
+    return render_template('index.html', index_total=index_total)
 
 @app.route('/result', methods=['POST'])
 def result():
@@ -27,9 +28,9 @@ def result():
     corpus = elasticsearchGetDocs(total, temp_query)
     return render_template('result.html', docs=corpus)
 
-# make query to transmit to elasticsearch
-# input: isFile, select size[0, infinity]
-# output: es query body(object)
+### make query to transmit to elasticsearch
+### input: size, temp_query(= user input query)
+### output: es query body(object)
 def transmitQuery(size, temp_query):
     doc = {}
     doc['size'] = size
@@ -43,31 +44,39 @@ def transmitQuery(size, temp_query):
 
     return doc
 
-# count num of documents according to query body
-# input: es query body
-# output: num of documents(int)
+### count indexed documents in elasticsearch
+### input: index name
+### output: num of indexed documents in elasticsearch
+def totalCount(index_name):
+    count_list = es.cat.count(index=index_name, params={"format": "json"})
+    count = count_list[0]['count']
+    return count
+
+### count num of documents according to query body
+### input: es query body
+### output: num of documents(int)
 def elasticsearchCount(doc):
     count = es.count(index=INDEX, body=doc)
     count = count['count']
     return count
 
-# return data
-# input: es query body
-# output: json format data (object)
+### return data
+### input: es query body
+### output: json format data (object)
 def elasticsearchQuery(doc):
     data = es.search(index=INDEX, body=doc)
     return data
 
-# return documents
-# input: count of document to return (int)
-# output: document (object array)
+### return documents
+### input: count of document to return (int)
+### output: document (object array)
 def nkdbContent(SIZE, temp_query):
     doc = transmitQuery(SIZE, temp_query)
     temp_result = elasticsearchQuery(doc)
 
     result = temp_result["hits"]["hits"]
-    num = len(result)
-    print("전달 받은 문서의 수 : ", num)
+    #num = len(result)
+    #print("Number of documents received : ", num)
 
     corpus = []
 
@@ -104,17 +113,14 @@ def nkdbContent(SIZE, temp_query):
 
 def elasticsearchGetDocs(total, temp_query):
     corpus = []
-    data = nkdbContent(10, temp_query)
+    data = nkdbContent(total, temp_query)
 
     # print(data)
     for oneDoc in data:
         corpus.append(oneDoc)
-    print("응답 받아 전송한 문서의 수 : ", total)
+    #print("Number of documents answered and transferred : ", total)
 
     return corpus
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0",port=5000, debug=True)
-
-
-
