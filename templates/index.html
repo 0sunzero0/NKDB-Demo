@@ -15,7 +15,7 @@
 
 <section class ="search_section">
     <div class="search">
-        <form action = "./result" method = "post" class ="search" id="option">
+        <form action = "./result" method = "post" lass ="search" id="option">
             <span class="input_content">
                 <input type="text" id="search_input" class="info" placeholder ="검색어를 입력해주세요." name="keyword">
             </span>
@@ -26,9 +26,10 @@
     </div>
     <div class = "count">
     {% if index_total %}
-    <p>총 색인된 문서의 수는 {{ index_total }}개 입니다</p>
+    <p>총 {{ index_total }}개의 문서가 색인되어 있습니다.</p>
     {% endif %}
     </div>
+
 </section>
 
 <div class="footer">
