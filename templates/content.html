@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <div id="content">
+        {% if doc %}
+            <p>{{doc.post_title}}</p>
+            <p>{{doc.published_institution_url}}<br/></p>
+            <p>{{doc.content}}<br/></p>
+            <p> {{ doc.post_date }} | {{doc.post_writer}}</p>
+        {% endif %}
+    </div>
+    <br/>
+
+</head>
+<body>
+
+</body>
+</html>
