@@ -1,21 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang = "ko">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-
-    <div id="content">
-        {% if doc %}
-            <p>{{doc.post_title}}</p>
-            <p>{{doc.published_institution_url}}<br/></p>
-            <p>{{doc.content}}<br/></p>
-            <p> {{ doc.post_date }} | {{doc.post_writer}}</p>
-        {% endif %}
-    </div>
-    <br/>
-
+<title>KUBiC</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/test1.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/test2.css')}}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
+<div class="header">
+    <h2>KUBiC</h2>
+</div>
+
+
+ <div id="content">
+     {% if doc %}
+         <p>{{doc.post_title}}</p>
+         <p>{{doc.published_institution_url}}<br/></p>
+         <p>{{doc.content}}<br/></p>
+         <p> {{ doc.post_date }} | {{doc.post_writer}}</p>
+     {% endif %}
+ </div>
+
+
+<div class="footer">
+    <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> KUBiC all rights reserved
+    </p>
+</div>
+
 </body>
 </html>
+
