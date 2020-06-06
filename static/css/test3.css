@@ -1,0 +1,59 @@
+#content{
+  height: 65vh;
+  min-height: 200px;
+  padding-top: 50px;
+}
+
+/* board table */
+div.board_wrap_bbs table.basicV {
+  border-top:2px solid #0c9aae;
+  border-bottom:1px solid #dedede;
+  margin:35px 0 0 0;
+}
+
+div.board_wrap_bbs table.basicV th{
+  height:39px;
+  text-align:center;
+  font-size:13px;
+  color:#333;
+  background:#f7f7f7;
+  border-bottom:1px solid #dedede;
+}
+div.board_wrap_bbs table.basicV th.right{
+  border-right:1px solid #dedede;
+}
+
+div.board_wrap_bbs table.basicV td{
+  border-bottom:1px solid #dedede;
+  padding-left:12px;
+  font-size:13px;
+  color:#333;
+}
+div.board_wrap_bbs table.basicV td a{
+  font-size:13px;
+  color:#333;
+}
+div.board_wrap_bbs table.basicV td.space{
+  padding:10px 0 10px 12px;
+}
+div.board_wrap_bbs table.basicV td.context{
+  padding:25px 20px;
+  font-size: 14px;
+}
+div.board_wrap_bbs table.basicV td.context p {
+  font-size: 14px;
+}
+div.board_wrap_bbs table.basicV	td.center{
+  text-align: center;
+  padding: 10px 0 10px;
+}
+
+div.board_wrap_bbs table.basicV td.space{
+  padding:10px 0 10px 12px;
+}
+div.board_wrap_bbs table.basicV td.context{
+  padding:25px 20px;
+}
+div.board_wrap_bbs table.basicV	td.center{
+  text-align: center; padding: 10px 0 10px;
+}
