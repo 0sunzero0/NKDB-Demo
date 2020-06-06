@@ -1,9 +1,10 @@
 from elasticsearch import Elasticsearch
+import hlight
 
 ### Url address of Elasticsearch
 localUrl = "http://localhost:9200"
 #serverUrl = "http://203.252.117.201:9200"
-INDEX = "nkdb200529"
+INDEX = "nkdb200531"
 
 ### Elasticsearch Connection
 #es = Elasticsearch(serverUrl)
@@ -64,6 +65,7 @@ def nkdbContent(SIZE, temp_query):
 
     for oneDoc in result:
         if  oneDoc['_source'].get('file_name'):
+            hlight_content = hlight.hlight_term(oneDoc['_source']['file_extracted_content'], temp_query)
             corpus.append(
                             {
                                 "_id" : oneDoc["_id"],
@@ -74,10 +76,12 @@ def nkdbContent(SIZE, temp_query):
                                 "post_date": oneDoc["_source"]["post_date"],
                                 "post_writer": oneDoc["_source"]["post_writer"],
                                 "published_institution_url": oneDoc["_source"]["published_institution_url"],
-                                "top_category": oneDoc["_source"]["top_category"]
+                                "top_category": oneDoc["_source"]["top_category"],
+                                "hlight_content": hlight_content
                             }
                          )
         else:
+            hlight_content = hlight.hlight_term(oneDoc['_source']['post_body'], temp_query)
             corpus.append(
                 {
                     "_id": oneDoc["_id"],
@@ -86,10 +90,11 @@ def nkdbContent(SIZE, temp_query):
                     "post_date": oneDoc["_source"]["post_date"],
                     "post_writer": oneDoc["_source"]["post_writer"],
                     "published_institution_url": oneDoc["_source"]["published_institution_url"],
-                    "top_category": oneDoc["_source"]["top_category"]
+                    "top_category": oneDoc["_source"]["top_category"],
+                    "hlight_content": hlight_content
                 }
             )
-        print(corpus)
+    print(corpus)
     return corpus
 
 
@@ -97,10 +102,5 @@ def elasticsearchGetDocs(total, temp_query):
     corpus = []
     data = nkdbContent(total, temp_query)
 
-    # print(data)
-    for oneDoc in data:
-        corpus.append(oneDoc)
-    #print("Number of documents answered and transferred : ", total)
-
-    return corpus
+    return data
 
