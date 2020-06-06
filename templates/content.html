@@ -4,7 +4,7 @@
 <title>KUBiC</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/test1.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/test2.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/test3.css')}}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -17,10 +17,44 @@
 
  <div id="content">
      {% if doc %}
+         <div class = "reportTit">
          <p>{{doc.post_title}}</p>
-         <p>{{doc.published_institution_url}}<br/></p>
-         <p>{{doc.content}}<br/></p>
-         <p> {{ doc.post_date }} | {{doc.post_writer}}</p>
+         </div>
+         <div class = "board_wrap_bbs">
+             <table cellpadding="0" cellspacing="0" class="basicV">
+                 <colgroup>
+                    <col width="20%"/>
+                     <col width="*"/>
+                </colgroup>
+                 <thead>
+                 <tr>
+                    <th scope="row">저자</th>
+                    <td colspan="3">{{ doc.post_writer }}</td>
+                 </tr>
+                 <tr>
+                     <th scope="row">게시한 날짜</th>
+                     <td colspan="3">{{doc.post_date}}</td>
+                 </tr>
+                 <tr>
+                     <th scope="row">발행기관</th>
+                     <td colspan="3"><a href = "{{ doc.published_institution_url }}">{{doc.published_institution}}</a></td>
+                 </tr>
+                 <tr>
+                     <th scope="row">카테고리</th>
+                     <td colspan="3">{{doc.top_category}}</td>
+                 </tr>
+                 <tr>
+                     <th scope="row">원문</th>
+                     <td colspan="3"><a href = "{{doc.file_download_url}}"><img src = "/static/img/attachment.gif" alt="attachment"></a></td>
+                 </tr>
+                 <tr>
+                     <pre>
+                     {{ doc.post_body }}
+                     </pre>
+                 </tr>
+                 </thead>
+             </table>
+         </div>
      {% endif %}
  </div>
 
