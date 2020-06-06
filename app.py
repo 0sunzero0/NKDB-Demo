@@ -23,7 +23,8 @@ def result():
 @app.route('/content/<docID>', methods=['GET'])
 def content(docID):
     result_list = search.es.get(index=INDEX, id=docID)['_source']
-    print(result_list)
+    if str(type(result_list['post_body'])) == "<class 'NoneType'>":
+        result_list['post_body'] = " "    
     return render_template('content.html', doc=result_list)
 
 if __name__ == '__main__':
