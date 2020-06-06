@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import json
 import search
-import hlight
+
 
 app = Flask(__name__)
 
@@ -25,8 +25,6 @@ def content(docID):
     result_list = search.es.get(index=INDEX, id=docID)['_source']
     print(result_list)
     return render_template('content.html', doc=result_list)
-
-
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0",port=5000, debug=True)
