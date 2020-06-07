@@ -4,7 +4,7 @@ import hlight
 ### Url address of Elasticsearch
 localUrl = "http://localhost:9200"
 #serverUrl = "http://203.252.117.201:9200"
-INDEX = "nkdb200531"
+INDEX = "nkdb200529"
 
 ### Elasticsearch Connection
 #es = Elasticsearch(serverUrl)
@@ -94,7 +94,7 @@ def nkdbContent(SIZE, temp_query):
                     "hlight_content": hlight_content
                 }
             )
-    print(corpus)
+    #print(corpus)
     return corpus
 
 
