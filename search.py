@@ -20,7 +20,7 @@ def transmitQuery(size, temp_query):
 
     doc['query'] = {
         "query_string":{
-            "fields": ["post_title", "post_body", "file_name", "file_extracted_content"],
+            "fields": ["post_title", "post_body", "file_name", "file_extracted_content", "published_institution"],
             "query": temp_query
         }
     }
@@ -99,8 +99,6 @@ def nkdbContent(SIZE, temp_query):
 
 
 def elasticsearchGetDocs(total, temp_query):
-    corpus = []
     data = nkdbContent(total, temp_query)
 
     return data
-
