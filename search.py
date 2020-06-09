@@ -4,7 +4,7 @@ import hlight
 ### Url address of Elasticsearch
 localUrl = "http://localhost:9200"
 #serverUrl = "http://203.252.117.201:9200"
-INDEX = "nkdb200529"
+INDEX = "nkdb200609"
 
 ### Elasticsearch Connection
 #es = Elasticsearch(serverUrl)
@@ -66,34 +66,65 @@ def nkdbContent(SIZE, temp_query):
     for oneDoc in result:
         if  oneDoc['_source'].get('file_name'):
             hlight_content = hlight.hlight_term(oneDoc['_source']['file_extracted_content'], temp_query)
-            corpus.append(
-                            {
-                                "_id" : oneDoc["_id"],
-                                "post_title" : oneDoc["_source"]["post_title"],
-                                "content" : oneDoc["_source"]["file_extracted_content"],
-                                "file_name" : oneDoc["_source"]["file_name"],
-                                "file_url" : oneDoc["_source"]["file_download_url"],
-                                "post_date": oneDoc["_source"]["post_date"],
-                                "post_writer": oneDoc["_source"]["post_writer"],
-                                "published_institution_url": oneDoc["_source"]["published_institution_url"],
-                                "top_category": oneDoc["_source"]["top_category"],
-                                "hlight_content": hlight_content
-                            }
-                         )
+            try:
+                corpus.append(
+                                {
+                                    "_id" : oneDoc["_id"],
+                                    "post_title" : oneDoc["_source"]["post_title"],
+                                    "content" : oneDoc["_source"]["file_extracted_content"],
+                                    "file_name" : oneDoc["_source"]["file_name"],
+                                    "file_url" : oneDoc["_source"]["file_download_url"],
+                                    "post_date": oneDoc["_source"]["post_date"],
+                                    "post_writer": oneDoc["_source"]["post_writer"],
+                                    "published_institution_url": oneDoc["_source"]["published_institution_url"],
+                                    "top_category": oneDoc["_source"]["top_category"],
+                                    "hlight_content": hlight_content
+                                }
+                             )
+            except KeyError:    # 통일부 발간물 사이트의 경우 published_date가 존재하고 post_date가 없기에 생긴 코드
+                corpus.append(
+                    {
+                        "_id": oneDoc["_id"],
+                        "post_title": oneDoc["_source"]["post_title"],
+                        "content": oneDoc["_source"]["file_extracted_content"],
+                        "file_name": oneDoc["_source"]["file_name"],
+                        "file_url": oneDoc["_source"]["file_download_url"],
+                        "post_date": oneDoc["_source"]["published_date"],
+                        "post_writer": oneDoc["_source"]["post_writer"],
+                        "published_institution_url": oneDoc["_source"]["published_institution_url"],
+                        "top_category": oneDoc["_source"]["top_category"],
+                        "hlight_content": hlight_content
+                    }
+                )
+
         else:
             hlight_content = hlight.hlight_term(oneDoc['_source']['post_body'], temp_query)
-            corpus.append(
-                {
-                    "_id": oneDoc["_id"],
-                    "post_title": oneDoc["_source"]["post_title"],
-                    "content": oneDoc["_source"]["post_body"],
-                    "post_date": oneDoc["_source"]["post_date"],
-                    "post_writer": oneDoc["_source"]["post_writer"],
-                    "published_institution_url": oneDoc["_source"]["published_institution_url"],
-                    "top_category": oneDoc["_source"]["top_category"],
-                    "hlight_content": hlight_content
-                }
-            )
+            try:
+                corpus.append(
+                    {
+                        "_id": oneDoc["_id"],
+                        "post_title": oneDoc["_source"]["post_title"],
+                        "content": oneDoc["_source"]["post_body"],
+                        "post_date": oneDoc["_source"]["post_date"],
+                        "post_writer": oneDoc["_source"]["post_writer"],
+                        "published_institution_url": oneDoc["_source"]["published_institution_url"],
+                        "top_category": oneDoc["_source"]["top_category"],
+                        "hlight_content": hlight_content
+                    }
+                )
+            except KeyError:    # 통일부 발간물 사이트의 경우 published_date가 존재하고 post_date가 없기에 생긴 코드
+                corpus.append(
+                    {
+                        "_id": oneDoc["_id"],
+                        "post_title": oneDoc["_source"]["post_title"],
+                        "content": oneDoc["_source"]["file_extracted_content"],
+                        "post_date": oneDoc["_source"]["published_date"],
+                        "post_writer": oneDoc["_source"]["post_writer"],
+                        "published_institution_url": oneDoc["_source"]["published_institution_url"],
+                        "top_category": oneDoc["_source"]["top_category"],
+                        "hlight_content": hlight_content
+                    }
+                )
     #print(corpus)
     return corpus
 
